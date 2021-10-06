@@ -1,6 +1,7 @@
 package com.example.api.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class ReportData {
 
     @Id
@@ -24,6 +26,6 @@ public class ReportData {
     private String CharacterName;
     @Column(name="planet_id")
     private Long planetId;
-    @Column(name="planet_id")
+    @Column(name="planet_name")
     private String planetName;
 }

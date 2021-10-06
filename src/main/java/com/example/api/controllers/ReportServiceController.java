@@ -1,6 +1,7 @@
 package com.example.api.controllers;
 
-import com.example.api.entities.Report;
+import com.example.api.dto.QueryDto;
+import com.example.api.dto.ReportDto;
 import com.example.api.services.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("report")
 public class ReportServiceController {
-    @Autowired
+
     private ReportService reportService;
+    @Autowired
+    public ReportServiceController(ReportService reportService) {
+        this.reportService = reportService;
+    }
 
     @PutMapping("/{report_id}")
-    public ResponseEntity<Report> generates(@PathVariable("report_id") Long id){
-        reportService.createUpdateReport(id);
+    public ResponseEntity<ReportDto> generates(@PathVariable("report_id") Long id,
+                                               @RequestBody QueryDto queryDto){
+        reportService.createUpdateReport(id,queryDto);
         return ResponseEntity.status(204).build();
     }
     @DeleteMapping("/{report_id}")
@@ -31,11 +37,11 @@ public class ReportServiceController {
         reportService.removeAllReports();
     }
     @GetMapping
-    public List<Report> getAll(){
+    public List<ReportDto> getAll(){
         return reportService.getAllReports();
     }
     @GetMapping("/{report_id}")
-    public Report getByReportId(@PathVariable("report_id") Long id){
+    public ReportDto getByReportId(@PathVariable("report_id") Long id){
         return reportService.getReportById(id);
     }
 
